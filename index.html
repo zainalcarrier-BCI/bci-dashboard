@@ -15,23 +15,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- DISABLE SERVICE WORKER -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            registration.unregister();
-          }
-        });
-      }
-    </script>
     <script type="module" src="/src/main.tsx?"> </script>
   </body>
-    <!-- FORCE CACHE BUST FOR ALL ASSETS -->
-    <script>
-      // Set cache-busting query string for all future dynamic imports
-      const cacheBuster = Date.now();
-      document.head.innerHTML += `<link rel="prefetch" href="/assets/index-${cacheBuster}.js">`;
-      window.location.search = `?v=${cacheBuster}`;
-    </script>
 </html>
