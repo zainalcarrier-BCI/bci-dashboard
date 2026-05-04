@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#00656f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="BCI Field Service" />
+    <meta name="description" content="BCI Field Service technician and operations web app." />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-192.svg" />
+    <title>BCI Field Service</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- DISABLE SERVICE WORKER -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+    </script>
+    <script type="module" src="/src/main.tsx?"> </script>
+  </body>
+    <!-- FORCE CACHE BUST FOR ALL ASSETS -->
+    <script>
+      // Set cache-busting query string for all future dynamic imports
+      const cacheBuster = Date.now();
+      document.head.innerHTML += `<link rel="prefetch" href="/assets/index-${cacheBuster}.js">`;
+      window.location.search = `?v=${cacheBuster}`;
+    </script>
+</html>
